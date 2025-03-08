@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class SideScrollerController : MonoBehaviour
@@ -11,6 +12,9 @@ public class SideScrollerController : MonoBehaviour
     private Rigidbody2D body;
     private Animator anim;
     public Transform groundCheckTransform;
+
+    private Transform platform; 
+    private Vector3 platformLastPos;
 
     private void Start()
     {
@@ -30,6 +34,17 @@ public class SideScrollerController : MonoBehaviour
 
         Move();
         if (grounded) AlignWithGround();
+        MoveWithPlatform();
+    }
+
+    private void MoveWithPlatform()
+    {
+        if (platform != null)
+        {
+            Vector3 platformDelta = platform.position - platformLastPos;
+            transform.position += platformDelta;
+            platformLastPos = platform.position;
+        }
     }
 
     private void Move()
@@ -41,12 +56,14 @@ public class SideScrollerController : MonoBehaviour
             transform.localScale = new Vector3(Mathf.Sign(deltaX), 1, 1);
     }
 
+    // called by animator from specific frame animation event
     public void ApplyJumpForce() =>
         body.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
 
     private bool isGrounded() =>
         Physics2D.OverlapCircle(groundCheckTransform.position, groundCheckRadius, groundLayer);
 
+    // keeps player aligned with ground when moving up or down slopes
     private void AlignWithGround()
     {
         RaycastHit2D hit = Physics2D.Raycast(groundCheckTransform.position, Vector2.down, groundCheckRadius + 0.2f, groundLayer);
@@ -56,14 +73,20 @@ public class SideScrollerController : MonoBehaviour
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, angle), Time.deltaTime * rotationSmoothness);
     }
 
-    private void OnDrawGizmos()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!groundCheckTransform) return;
+        if (collision.gameObject.CompareTag("MovingPlatform"))
+        {
+            platform = collision.transform;
+            platformLastPos = platform.position;
+        }
+    }
 
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(groundCheckTransform.position, groundCheckRadius);
-
-        Gizmos.color = Color.green;
-        Gizmos.DrawRay(groundCheckTransform.position, Vector2.down * (groundCheckRadius + 0.1f));
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("MovingPlatform"))
+        {
+            platform = null;
+        }
     }
 }

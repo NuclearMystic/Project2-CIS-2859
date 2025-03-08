@@ -3,15 +3,15 @@ using Cinemachine;
 
 public class CameraFollow2D : MonoBehaviour
 {
-    public Transform player; // Assign the player transform in the Inspector
+    public Transform player;
     private CinemachineVirtualCamera virtualCamera;
     private CinemachineFramingTransposer framingTransposer;
 
-    public float lookAheadRight = 0.3f; // Screen X value when looking right
-    public float lookAheadLeft = 0.7f;  // Screen X value when looking left
-    public float returnToCenter = 0.5f; // Default Screen X when stopped
+    public float lookAheadRight = 0.3f; 
+    public float lookAheadLeft = 0.7f; 
+    public float returnToCenter = 0.5f; 
 
-    public float lookAheadSpeed = 5f; // How fast the lookahead adjusts
+    public float lookAheadSpeed = 5f;
     private Vector3 previousPlayerPosition;
     private float targetScreenX;
 
@@ -23,7 +23,7 @@ public class CameraFollow2D : MonoBehaviour
         if (player != null)
             previousPlayerPosition = player.position;
 
-        targetScreenX = returnToCenter; // Start centered
+        targetScreenX = returnToCenter; 
     }
 
     void Update()
@@ -32,18 +32,17 @@ public class CameraFollow2D : MonoBehaviour
 
         Vector3 playerMovement = player.position - previousPlayerPosition;
 
-        // Determine which direction the player is moving
         if (playerMovement.x > 0.1f)
         {
-            targetScreenX = lookAheadRight; // Looking right
+            targetScreenX = lookAheadRight;
         }
         else if (playerMovement.x < -0.1f)
         {
-            targetScreenX = lookAheadLeft; // Looking left
+            targetScreenX = lookAheadLeft; 
         }
         else
         {
-            targetScreenX = returnToCenter; // Lerp back to center when idle
+            targetScreenX = returnToCenter;
         }
 
         // Smoothly adjust the Screen X value

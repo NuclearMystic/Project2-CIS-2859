@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - MovingPlatform
   layers:
   - Default
   - TransparentFX
@@ -11,8 +12,8 @@ TagManager:
   - Ground
   - Water
   - UI
-  - 
-  - 
+  - Player
+  - MovingPlatform
   - 
   - 
   - 
@@ -41,11 +42,17 @@ TagManager:
   - name: Background
     uniqueID: 520816269
     locked: 0
+  - name: Decal_Background
+    uniqueID: 2985575943
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Decal_Background
-    uniqueID: 2985575943
+  - name: Decal_BehindPlayer
+    uniqueID: 2952117289
+    locked: 0
+  - name: Decal_BehindPlayer_2
+    uniqueID: 2919488147
     locked: 0
   - name: Player
     uniqueID: 545904701

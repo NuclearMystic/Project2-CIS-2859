@@ -45,7 +45,6 @@ public class CameraFollow2D : MonoBehaviour
             targetScreenX = returnToCenter;
         }
 
-        // Smoothly adjust the Screen X value
         framingTransposer.m_ScreenX = Mathf.Lerp(framingTransposer.m_ScreenX, targetScreenX, Time.deltaTime * lookAheadSpeed);
 
         previousPlayerPosition = player.position;

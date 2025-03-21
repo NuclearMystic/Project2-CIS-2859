@@ -6,6 +6,8 @@ TagManager:
   tags:
   - MovingPlatform
   - Water
+  - Coin
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -15,9 +17,9 @@ TagManager:
   - UI
   - Player
   - MovingPlatform
-  - 
-  - 
-  - 
+  - EnemyGround
+  - EnemyDamage
+  - Enemy
   - 
   - 
   - 

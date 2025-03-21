@@ -1,0 +1,23 @@
+{
+	"frames":[
+		{"filename":"0028","frame":{"x":0,"y":0,"w":1024,"h":1024},"rotated":"false","trimmed":"false","spriteSourceSize":{"x":0,"y":0,"w":1024,"h":1024},"sourceSize":{"w":1024,"h":1024}},
+		{"filename":"0025","frame":{"x":1025,"y":0,"w":1024,"h":1024},"rotated":"false","trimmed":"false","spriteSourceSize":{"x":0,"y":0,"w":1024,"h":1024},"sourceSize":{"w":1024,"h":1024}},
+		{"filename":"0022","frame":{"x":2050,"y":0,"w":1024,"h":1024},"rotated":"false","trimmed":"false","spriteSourceSize":{"x":0,"y":0,"w":1024,"h":1024},"sourceSize":{"w":1024,"h":1024}},
+		{"filename":"0019","frame":{"x":0,"y":1025,"w":1024,"h":1024},"rotated":"false","trimmed":"false","spriteSourceSize":{"x":0,"y":0,"w":1024,"h":1024},"sourceSize":{"w":1024,"h":1024}},
+		{"filename":"0016","frame":{"x":1025,"y":1025,"w":1024,"h":1024},"rotated":"false","trimmed":"false","spriteSourceSize":{"x":0,"y":0,"w":1024,"h":1024},"sourceSize":{"w":1024,"h":1024}},
+		{"filename":"0013","frame":{"x":2050,"y":1025,"w":1024,"h":1024},"rotated":"false","trimmed":"false","spriteSourceSize":{"x":0,"y":0,"w":1024,"h":1024},"sourceSize":{"w":1024,"h":1024}},
+		{"filename":"0010","frame":{"x":0,"y":2050,"w":1024,"h":1024},"rotated":"false","trimmed":"false","spriteSourceSize":{"x":0,"y":0,"w":1024,"h":1024},"sourceSize":{"w":1024,"h":1024}},
+		{"filename":"0007","frame":{"x":1025,"y":2050,"w":1024,"h":1024},"rotated":"false","trimmed":"false","spriteSourceSize":{"x":0,"y":0,"w":1024,"h":1024},"sourceSize":{"w":1024,"h":1024}},
+		{"filename":"0004","frame":{"x":2050,"y":2050,"w":1024,"h":1024},"rotated":"false","trimmed":"false","spriteSourceSize":{"x":0,"y":0,"w":1024,"h":1024},"sourceSize":{"w":1024,"h":1024}},
+		{"filename":"0001","frame":{"x":0,"y":3075,"w":1024,"h":1024},"rotated":"false","trimmed":"false","spriteSourceSize":{"x":0,"y":0,"w":1024,"h":1024},"sourceSize":{"w":1024,"h":1024}},
+		{"filename":"Background","frame":{"x":1025,"y":3075,"w":1024,"h":1024},"rotated":"false","trimmed":"false","spriteSourceSize":{"x":0,"y":0,"w":1024,"h":1024},"sourceSize":{"w":1024,"h":1024}}
+	],
+	"meta":{
+		"app":"https://github.com/BdR76/GimpSpriteAtlas/",
+		"version":"GIMP SpriteAtlas plug-in v0.3",
+		"author":"Bas de Reuver",
+		"image":"boss_spritesheet_walk.png",
+		"size":{"w":3074,"h":4099},
+		"scale":1
+	}
+}

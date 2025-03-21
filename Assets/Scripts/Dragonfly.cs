@@ -15,7 +15,7 @@ public class Dragonfly : Enemy
         targetPoint = pointA;
     }
 
-    private void Update()
+    protected override void Update()
     {
         EnemyUpdate();
 
@@ -69,6 +69,32 @@ public class Dragonfly : Enemy
             ? pointA
             : pointB;
     }
+
+    public override void Stomped()
+    {
+        if (isDead) return;
+        isDead = true;
+
+        rb.bodyType = RigidbodyType2D.Dynamic; // Enable gravity so it falls
+
+        foreach (Collider2D col in GetComponentsInChildren<Collider2D>())
+        {
+            col.enabled = false;
+        }
+
+        // Launch upward
+        if (rb != null)
+        {
+            rb.velocity = Vector2.zero;
+            rb.AddForce(Vector2.up * deathLaunchForce, ForceMode2D.Impulse);
+            rb.gravityScale = 1f;
+        }
+
+        transform.rotation = Quaternion.Euler(0f, 0f, 180f);
+
+        this.enabled = false;
+    }
+
 
     private void OnDisable()
     {

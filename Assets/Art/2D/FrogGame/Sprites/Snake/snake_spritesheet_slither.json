@@ -1,0 +1,20 @@
+{
+	"frames":[
+		{"filename":"0071","frame":{"x":0,"y":0,"w":1024,"h":512},"rotated":"false","trimmed":"false","spriteSourceSize":{"x":0,"y":0,"w":1024,"h":512},"sourceSize":{"w":1024,"h":512}},
+		{"filename":"0061","frame":{"x":1025,"y":0,"w":1024,"h":512},"rotated":"false","trimmed":"false","spriteSourceSize":{"x":0,"y":0,"w":1024,"h":512},"sourceSize":{"w":1024,"h":512}},
+		{"filename":"0051","frame":{"x":0,"y":513,"w":1024,"h":512},"rotated":"false","trimmed":"false","spriteSourceSize":{"x":0,"y":0,"w":1024,"h":512},"sourceSize":{"w":1024,"h":512}},
+		{"filename":"0041","frame":{"x":1025,"y":513,"w":1024,"h":512},"rotated":"false","trimmed":"false","spriteSourceSize":{"x":0,"y":0,"w":1024,"h":512},"sourceSize":{"w":1024,"h":512}},
+		{"filename":"0031","frame":{"x":0,"y":1026,"w":1024,"h":512},"rotated":"false","trimmed":"false","spriteSourceSize":{"x":0,"y":0,"w":1024,"h":512},"sourceSize":{"w":1024,"h":512}},
+		{"filename":"0021","frame":{"x":1025,"y":1026,"w":1024,"h":512},"rotated":"false","trimmed":"false","spriteSourceSize":{"x":0,"y":0,"w":1024,"h":512},"sourceSize":{"w":1024,"h":512}},
+		{"filename":"0011","frame":{"x":0,"y":1539,"w":1024,"h":512},"rotated":"false","trimmed":"false","spriteSourceSize":{"x":0,"y":0,"w":1024,"h":512},"sourceSize":{"w":1024,"h":512}},
+		{"filename":"0001","frame":{"x":1025,"y":1539,"w":1024,"h":512},"rotated":"false","trimmed":"false","spriteSourceSize":{"x":0,"y":0,"w":1024,"h":512},"sourceSize":{"w":1024,"h":512}}
+	],
+	"meta":{
+		"app":"https://github.com/BdR76/GimpSpriteAtlas/",
+		"version":"GIMP SpriteAtlas plug-in v0.3",
+		"author":"Bas de Reuver",
+		"image":"snake_spritesheet_slither.png",
+		"size":{"w":2049,"h":2051},
+		"scale":1
+	}
+}

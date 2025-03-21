@@ -9,6 +9,14 @@ public class Player : MonoBehaviour
     private Animator animator;
     private Rigidbody2D rb;
 
+    private int coinTotal = 0;
+
+    [SerializeField]
+    private AudioSource playerSFX;
+    public AudioClip coinSFX;
+
+    public GameObject goldenPlatform;
+
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -18,6 +26,7 @@ public class Player : MonoBehaviour
     public void TakeDamage(float amount, Vector2 hitSource)
     {
         health -= amount;
+        UIController.Instance.UpdateHealthUI(health);
         Debug.Log($"Player took {amount} damage! Health left: {health}");
 
         if (animator != null)
@@ -40,6 +49,30 @@ public class Player : MonoBehaviour
             Vector2 knockbackDirection = (transform.position - (Vector3)hitSource).normalized;
             rb.velocity = Vector2.zero;
             rb.AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Coin"))
+        {
+            Destroy(collision.gameObject);
+            coinTotal++;
+            UIController.Instance.UpdateCoinUI(coinTotal);
+            playerSFX.PlayOneShot(coinSFX);
+            if(coinTotal >= 10)
+            {
+                goldenPlatform.SetActive(true);
+            }
+        }
+    }
+
+    public void Bounce()
+    {
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, 10f); // tune bounce force
         }
     }
 

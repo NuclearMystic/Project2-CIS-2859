@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] private GameObject stompZone;
+    [SerializeField] private float minStompVelocity = -1.0f;
+
     public float health = 10f;
     public float knockbackForce = 5f;
     public float hitAnimationDuration = 0.2f;
@@ -21,6 +24,13 @@ public class Player : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+    }
+
+    private void Update()
+    {
+        bool isFalling = rb.velocity.y < minStompVelocity;
+        if (stompZone.activeSelf != isFalling)
+            stompZone.SetActive(isFalling);
     }
 
     public void TakeDamage(float amount, Vector2 hitSource)
@@ -69,7 +79,6 @@ public class Player : MonoBehaviour
 
     public void Bounce()
     {
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
         if (rb != null)
         {
             rb.velocity = new Vector2(rb.velocity.x, 10f); // tune bounce force

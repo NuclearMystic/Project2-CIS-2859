@@ -8,6 +8,7 @@ TagManager:
   - Water
   - Coin
   - Enemy
+  - PlayerStompZone
   layers:
   - Default
   - TransparentFX

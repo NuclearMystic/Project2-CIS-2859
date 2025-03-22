@@ -120,6 +120,8 @@ public abstract class Enemy : MonoBehaviour
 
         transform.rotation = Quaternion.Euler(0f, 0f, 180f);
 
+        Boss.Instance.AddEnemyStomped();
+
         this.enabled = false;
     }
 }

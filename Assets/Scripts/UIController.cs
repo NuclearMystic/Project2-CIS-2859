@@ -13,6 +13,8 @@ public class UIController : MonoBehaviour
     [SerializeField]
     private TMP_Text coinText;
 
+    public GameObject endScreen;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -33,5 +35,11 @@ public class UIController : MonoBehaviour
     public void UpdateCoinUI(int coinTotal)
     {
         coinText.text = coinTotal.ToString();
+    }
+
+    public void EnableEndScreen()
+    {
+        endScreen.SetActive(true);
+        // Include any logic to stop game in script on endScreen gameobjects ondisable method
     }
 }

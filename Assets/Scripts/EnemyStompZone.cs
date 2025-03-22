@@ -7,10 +7,10 @@ public class EnemyStompZone : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("PlayerStompZone"))
         {
             Debug.Log("Stomp detected!");
-            Player player = other.GetComponent<Player>();
+            Player player = other.GetComponentInParent<Player>();
             if (player != null)
             {
                 enemy.Stomped();

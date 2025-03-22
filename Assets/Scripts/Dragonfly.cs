@@ -75,7 +75,7 @@ public class Dragonfly : Enemy
         if (isDead) return;
         isDead = true;
 
-        rb.bodyType = RigidbodyType2D.Dynamic; // Enable gravity so it falls
+        rb.bodyType = RigidbodyType2D.Dynamic; 
 
         foreach (Collider2D col in GetComponentsInChildren<Collider2D>())
         {
@@ -91,6 +91,8 @@ public class Dragonfly : Enemy
         }
 
         transform.rotation = Quaternion.Euler(0f, 0f, 180f);
+
+        Boss.Instance.AddEnemyStomped();
 
         this.enabled = false;
     }

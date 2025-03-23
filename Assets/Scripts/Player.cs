@@ -20,6 +20,8 @@ public class Player : MonoBehaviour
 
     public GameObject goldenPlatform;
 
+    public bool playerDead = false;
+
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -28,7 +30,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        bool isFalling = rb.velocity.y < minStompVelocity;
+        bool isFalling = rb.velocity.y < minStompVelocity && playerDead == false;
         if (stompZone.activeSelf != isFalling)
             stompZone.SetActive(isFalling);
     }
@@ -81,12 +83,22 @@ public class Player : MonoBehaviour
     {
         if (rb != null)
         {
-            rb.velocity = new Vector2(rb.velocity.x, 10f); // tune bounce force
+            rb.velocity = new Vector2(rb.velocity.x, 15f); // tune bounce force
         }
     }
 
     private void Die()
     {
+        playerDead = true;
+
+        FindAnyObjectByType<SideScrollerController>().enabled = false;
+        GetComponent<Collider2D>().enabled = false;
+
+        rb.velocity = Vector2.zero;
+        rb.AddForce(Vector2.up * 10f, ForceMode2D.Impulse); 
+
+        transform.rotation = Quaternion.Euler(0f, 0f, 180f);
+
         Debug.Log("Player has died!");
     }
 }

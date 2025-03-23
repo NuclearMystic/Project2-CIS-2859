@@ -92,7 +92,7 @@ public class Dragonfly : Enemy
 
         transform.rotation = Quaternion.Euler(0f, 0f, 180f);
 
-        Boss.Instance.AddEnemyStomped();
+        BossActivator.Instance.AddEnemyStomped();
 
         this.enabled = false;
     }

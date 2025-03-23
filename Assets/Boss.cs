@@ -1,47 +1,142 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
-public class Boss : MonoBehaviour
+public class Boss : Enemy
 {
-    public static Boss Instance { get; private set; }
+    [Header("Boss Settings")]
+    [SerializeField] private int maxBossHP = 3;
 
-    [SerializeField]
-    private GameObject bossObject;
+    [Header("Movement")]
+    public Transform pointA;
+    public Transform pointB;
+    public float moveSpeed = 2f;
+    public float idleTime = 1f;
+    public float pointRangeTolerance = 0.1f;
 
-    private float bossHP = 3f;
+    private int currentHP;
+    private bool isIdling = false;
+    private bool isChasing = false;
+    private Transform targetPoint;
 
-    private void Awake()
+    protected void Awake()
     {
-        if (Instance != null && Instance != this)
+        currentHP = maxBossHP;
+        targetPoint = pointA;
+
+        if (rb == null)
+            rb = GetComponent<Rigidbody2D>();
+    }
+
+    protected override void Update()
+    {
+        EnemyUpdate();
+
+        if (isDead) return;
+
+        if (playerDetected)
         {
-            Destroy(gameObject);
+            if (!isChasing)
+            {
+                isChasing = true;
+                StopAllCoroutines();
+            }
+
+            ChasePlayer();
+        }
+        else
+        {
+            if (isChasing)
+            {
+                isChasing = false;
+                targetPoint = GetClosestPatrolPoint();
+            }
+
+            if (!isIdling)
+                Patrol();
+        }
+
+        if (animator != null)
+        {
+            animator.SetFloat("speed", Mathf.Abs(rb.velocity.x));
+        }
+    }
+
+    private void Patrol()
+    {
+        Vector2 direction = (targetPoint.position - transform.position).normalized;
+        rb.velocity = new Vector2(direction.x * moveSpeed, rb.velocity.y);
+        FlipSprite(direction);
+
+        if (Vector2.Distance(transform.position, targetPoint.position) < pointRangeTolerance)
+        {
+            rb.velocity = Vector2.zero;
+            StartCoroutine(IdleBeforeTurningAround());
+        }
+    }
+
+    private void ChasePlayer()
+    {
+        if (player == null) return;
+
+        Vector2 direction = (player.position - transform.position).normalized;
+        rb.velocity = new Vector2(direction.x * moveSpeed, rb.velocity.y);
+        FlipSprite(direction);
+    }
+
+    private System.Collections.IEnumerator IdleBeforeTurningAround()
+    {
+        isIdling = true;
+        yield return new WaitForSeconds(idleTime);
+        targetPoint = (targetPoint == pointA) ? pointB : pointA;
+        isIdling = false;
+    }
+
+    private Transform GetClosestPatrolPoint()
+    {
+        return (Vector2.Distance(transform.position, pointA.position) < Vector2.Distance(transform.position, pointB.position))
+            ? pointA
+            : pointB;
+    }
+
+    public override void Stomped()
+    {
+        if (isDead) return;
+
+        currentHP--;
+
+        if (animator != null)
+            animator.SetTrigger("Hit");
+
+        if (currentHP <= 0)
+        {
+            isDead = true;
+            MusicChanger.Instance.PlayEndMusic();
+            UIController.Instance.EnableEndScreen();
+            rb.bodyType = RigidbodyType2D.Dynamic;
+
+            // Disable damage colliders
+            foreach (Collider2D col in GetComponentsInChildren<Collider2D>())
+            {
+                col.enabled = false;
+            }
+
+            // Launch upward
+            if (rb != null)
+            {
+                rb.velocity = Vector2.zero;
+                rb.AddForce(Vector2.up * deathLaunchForce, ForceMode2D.Impulse);
+                rb.gravityScale = 1f;
+            }
+
+            this.enabled = false;
+
+            transform.rotation = Quaternion.Euler(0f, 0f, 180f);
+            Debug.Log("Boss defeated!");
             return;
         }
 
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
-
-    private float enemiesStomped = 0;
-
-    public void AddEnemyStomped()
-    {
-        enemiesStomped++;
-        Debug.Log("Stomped enemy added! " + enemiesStomped + " Total enemies stomped!");
-    }
-
-    public void Update()
-    {
-        if(enemiesStomped == 3)
-        {
-            bossObject.SetActive(true);
-        }
-    }
-
-    public void BossDefeated()
-    {
-        // trigger win scenario
+        // Show feedback on non-lethal stomp
+        rb.velocity = Vector2.zero;
+        rb.AddForce(Vector2.up * deathLaunchForce, ForceMode2D.Impulse);
+        Debug.Log($"Boss hit! Remaining HP: {currentHP}");
     }
 }

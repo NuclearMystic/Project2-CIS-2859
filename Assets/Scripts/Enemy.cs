@@ -26,7 +26,10 @@ public abstract class Enemy : MonoBehaviour
 
     protected virtual void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        if(rb == null)
+        {
+            rb = GetComponent<Rigidbody2D>();
+        }
         animator = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
     }
@@ -120,7 +123,7 @@ public abstract class Enemy : MonoBehaviour
 
         transform.rotation = Quaternion.Euler(0f, 0f, 180f);
 
-        Boss.Instance.AddEnemyStomped();
+        BossActivator.Instance.AddEnemyStomped();
 
         this.enabled = false;
     }

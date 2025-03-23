@@ -15,6 +15,7 @@ public class FrogRespawn : MonoBehaviour
     private Collider2D frogCollider;
     private SideScrollerController playerController;
     private AudioSource audioSource;
+    private Player player;
 
     private void Start()
     {
@@ -23,6 +24,7 @@ public class FrogRespawn : MonoBehaviour
         frogCollider = GetComponent<Collider2D>();
         playerController = GetComponent<SideScrollerController>(); 
         audioSource = GetComponent<AudioSource>();
+        player = GetComponent<Player>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -30,6 +32,7 @@ public class FrogRespawn : MonoBehaviour
         if (other.CompareTag("Water")) 
         {
             StartCoroutine(HandleFrogFall());
+            
         }
     }
 
@@ -47,14 +50,24 @@ public class FrogRespawn : MonoBehaviour
         animator.speed = 1f;
 
         transform.position = respawnPoint.position;
+        transform.rotation = Quaternion.identity;
+
         rb.velocity = Vector2.zero; 
         yield return new WaitForSeconds(0.1f);
 
+        if(frogCollider.enabled == false)
+        {
+            frogCollider.enabled = true;
+        }
         rb.velocity = new Vector2(0, launchForce);
 
-        yield return new WaitForSeconds(0.3f); 
+
+        yield return new WaitForSeconds(0.3f);
         if (playerController != null)
+        {
             playerController.enabled = true;
+            player.playerDead = false;
+        }
 
         yield return new WaitForSeconds(0.5f); 
         if (waterTrigger != null)

@@ -39,7 +39,9 @@ public class UIController : MonoBehaviour
 
     public void EnableEndScreen()
     {
+
         endScreen.SetActive(true);
+        FindAnyObjectByType<SideScrollerController>().enabled = false;  
         // Include any logic to stop game in script on endScreen gameobjects ondisable method
     }
 }

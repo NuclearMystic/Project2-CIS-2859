@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class Player : MonoBehaviour
 {
@@ -33,6 +34,15 @@ public class Player : MonoBehaviour
         bool isFalling = rb.velocity.y < minStompVelocity && playerDead == false;
         if (stompZone.activeSelf != isFalling)
             stompZone.SetActive(isFalling);
+
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            if(health < 10)
+            {
+                health++;
+                UIController.Instance.UpdateHealthUI(health);
+            }
+        }
     }
 
     public void TakeDamage(float amount, Vector2 hitSource)
